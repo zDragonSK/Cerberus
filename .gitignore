@@ -1,0 +1,11 @@
+# Own extensions
+*.zsk
+*.sk
+
+# Execution binary
+main
+main.exe
+
+# VSCode
+.vscode 
+
