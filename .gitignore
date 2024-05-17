@@ -9,3 +9,5 @@ main.exe
 # VSCode
 .vscode 
 
+# Directorys
+.ccls*
