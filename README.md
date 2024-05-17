@@ -5,4 +5,4 @@ A just rebuild of my password-manager. The idea of the project is to generate pa
 The final function of Cerberus is to offer several password options with a personalized configuration. Initially, Cerberus, without storing any password, will offer to create a password using a key and a tag to create a hash in SHA256. The hash obtained through the key receives a small change using the integer values of the characters in your TAG, but in the future, Cerberus will create a second key with the TAG and encrypt points of the final hash with that TAG for greater security.
 
 ## How to compile
-Just run `make` in the Cerberus directory :D
+Install the **GCC** and **MAKE** package. After installing them, run the `MAKE` command.
