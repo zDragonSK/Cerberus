@@ -7,11 +7,14 @@
 /* Encript a word */
 int encript (const char *keyword, const char *keysimple){
   unsigned char *hash = SHA256((const unsigned char *)keyword, strlen(keyword), NULL);
+
   for (register int x=0; x<strlen(keysimple); x++)
     if (keysimple[x]) hash[x] = keysimple[x];
+
   printf("Key: %s\nTag: %s\nHash: ", keyword, keysimple);
   for (register int y=0; y<32; y++)
     printf("%02x", hash[y]);
+
   printf("\n");
   return 0;
 }
@@ -19,9 +22,11 @@ int encript (const char *keyword, const char *keysimple){
 /* Legacy Encripter */
 int l_encript(const char *keyword) {
   unsigned char *hash = SHA256((const unsigned char *)keyword, strlen(keyword), NULL);
+
   printf("Key: %s\nHash: ", keyword);
   for (register int x=0; x<32; x++)
     printf("%02x", hash[x]);
+
   printf("\n");
   return 0;
 }
