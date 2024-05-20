@@ -1,0 +1,11 @@
+#+filetags: Cerberus:project:clang
+
+/Use this file with Emacs!/
+
+* Cerberus
+** Schematic
+- ~src/~
+  - ~src/lib/~
+    - ~cerberus.h~
+  - ~cerberus.c~
+  - ~main.c~

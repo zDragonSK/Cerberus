@@ -11,7 +11,6 @@
 #include <string.h>
 
 int main(int argc, char *argv[]) {
-  /* Check arguments */
   if (argc < 3) {
     fprintf(stderr, "[X] Bad Arguments!\f%s [keycode] [keypass]\n", argv[0]);
     return -1;
