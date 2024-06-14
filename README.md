@@ -1,8 +1,27 @@
-# Cerberus Manager
-A just rebuild of my password-manager. The idea of the project is to generate passwords using keys and change the hash to obtain a password that is a little more secure and in a more productive way.
+# Cerberus
+A simple and functional password generator.
 
-## About Cerberus
-The final function of Cerberus is to offer several password options with a personalized configuration. Initially, Cerberus, without storing any password, will offer to create a password using a key and a tag to create a hash in SHA256. The hash obtained through the key receives a small change using the integer values of the characters in your TAG, but in the future, Cerberus will create a second key with the TAG and encrypt points of the final hash with that TAG for greater security.
+## How it works?
+Cerberus receives two inputs. The first argument is the key to generate the password, and the second is a type of TAG. It is recommended that the TAG is the name of the social network or objective. Upon receiving the inputs, the algorithm will encrypt the key in SHA-256 and modify it with an MD5 hash generated using the TAG. In the end, Cerberus delivers a different key to each TAG, even if the same key is used.
+
+## Why use Cerberus?
+The idea is not to replace a complex manager that can generate and store all passwords. The objective of Cerberus is to generate passwords without storing them in online services where they are vulnerable to online services and exploitation techniques using web applications. Not that Cerberus is not exploitable, since it is a local service, but just offering a clean and fast alternative to having several different passwords without having to memorize all the keys or repeat the same password.
 
 ## How to compile
-Install the **GCC** and **MAKE** package. After installing them, run the `MAKE` command.
+
+### Requirements:
+* MAKE;
+* C/C++ Compiler;
+* Cup of coffe;
+
+Install MAKE and a C compiler (like GCC). <br>
+Ex: <br>
+`pacman -Sy gcc make` <br>
+After installing, compile the code using `make` command. When compiling, run a test command. <br> <br>
+
+See the original SHA-256: <br>
+`./main password@ -o`
+
+See the difference: <br>
+`./main password@ Discord && ./main password@ Twitter` <br>
+Note that several parts of the password are different, especially the beginning and some characters between the center and the end. The result depends on the size of the TAG.
