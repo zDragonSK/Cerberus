@@ -14,14 +14,14 @@ The idea is not to replace a complex manager that can generate and store all pas
 * C/C++ Compiler;
 * Cup of coffe;
 
-Install MAKE and a C compiler (like GCC).
-Ex:
-`pacman -Sy gcc make`
-After installing, compile the code using `make`. When compiling, run a test command.
+Install MAKE and a C compiler (like GCC). <br>
+Ex: <br>
+`pacman -Sy gcc make` <br>
+After installing, compile the code using `make` command. When compiling, run a test command. <br> <br>
 
-See the original SHA-256:
+See the original SHA-256: <br>
 `./main password@ -o`
 
-See the difference:
-`./main password@ Discord && ./main password@ Twitter`
+See the difference: <br>
+`./main password@ Discord && ./main password@ Twitter` <br>
 Note that several parts of the password are different, especially the beginning and some characters between the center and the end. The result depends on the size of the TAG.
