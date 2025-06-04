@@ -1,9 +1,9 @@
 /*
- Cerberus - Password-manager
+ Cerberus - Password-generator
  Encript a password with keys and words
  By: zDragonSK
 
- ./main keyhere Discord
+ ./main bestpassword Discord
 */
 #include "lib/cerberus.h"
 #include <stdio.h>
