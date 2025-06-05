@@ -37,11 +37,11 @@ int l_encript (const char *keyword) {
 void swap(unsigned char *sha256_hash, const unsigned char *md5_hash, const char *keysimple) {
   size_t len = strlen(keysimple);
   for (size_t i = 0; i < len; i++) {
-    size_t position = keysimple[i] % 32;
-    sha256_hash[position] = md5_hash[i % 16];
+    size_t position = keysimple[i] % SHA256_DIGEST_LENGTH;
+    sha256_hash[position] ^= md5_hash[i % MD5_DIGEST_LENGTH];
   }
   for (size_t i=0; i<len; i++){
-    size_t position = keysimple[i] % 21;
-    sha256_hash[position] = md5_hash[i % 16];
+    size_t position = (keysimple[i] * 3 + i) % SHA256_DIGEST_LENGTH;
+    sha256_hash[position] ^= md5_hash[i * 5 + 7] % MD5_DIGEST_LENGTH;
   }
 }
