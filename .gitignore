@@ -5,6 +5,10 @@
 # Execution binary
 main
 main.exe
+Cerberus
+Cerberus.exe
+test.exe
+test
 
 # VSCode
 .vscode 
