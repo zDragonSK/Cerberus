@@ -15,8 +15,8 @@ int main(int argc, char *argv[]) {
     return -1;
   }
   if (!(strcmp(argv[2], "-o")))
-    l_encript(argv[1]);
+    legacyHasher(argv[1]);
   else
-    encript(argv[1], argv[2]);
+    hash(argv[1], argv[2]);
   return 0;
 }
