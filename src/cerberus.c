@@ -22,16 +22,18 @@ int legacyHasher (const char *keyword) {
 int hash(const char *password, const char *tag) {
   unsigned char keyHash[SHA256_DIGEST_LENGTH];
   unsigned char tagHash[SHA256_DIGEST_LENGTH];
+
   if (!SHA256((const unsigned char *)password, strlen(password), keyHash))
     return -1;
   if (!SHA256((const unsigned char *)tag, strlen(tag), tagHash))
-    return 0;
+    return -1;
 
   swap(keyHash, tagHash, tag);
   printf("Pass/tag: %s|%s\nHash: ", password, tag);
   for (register int x = 0; x < 32; x++)
     printf("%02x", keyHash[x]);
   printf("\n");
+
   OPENSSL_cleanse(keyHash, HASHLEN);
   OPENSSL_cleanse(tagHash, HASHLEN);
   return 0;
@@ -41,7 +43,6 @@ int hash(const char *password, const char *tag) {
 void swap(unsigned char *sha256Key, const unsigned char *sha256Tag, const char *tag) {
   size_t size = strlen(tag);
   if (size > 64) size=64;
-
   for (size_t x = 0; x < size; x++) {
     size_t hashPos = tag[x] % HASHLEN;
     size_t hashPos2 = (tag[x]*3+x) % HASHLEN;
