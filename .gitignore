@@ -8,7 +8,7 @@ main.exe
 Cerberus
 Cerberus.exe
 test.exe
-test
+test*
 
 # VSCode
 .vscode 

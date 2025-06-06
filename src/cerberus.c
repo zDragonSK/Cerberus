@@ -4,25 +4,11 @@
 #include <string.h>
 #include <openssl/sha.h>
 #include <openssl/md5.h>
-
-/* Encript a word */
-int encript (const char *keyword, const char *keysimple){
-  unsigned char hash[SHA256_DIGEST_LENGTH];
-  unsigned char m_hash[MD5_DIGEST_LENGTH];
-  if (!SHA256((const unsigned char *)keyword, strlen(keyword), hash))
-    return -1;
-  if (!MD5((const unsigned char *)keysimple, strlen(keysimple), m_hash))
-    return -1;
-  swap(hash, m_hash, keysimple);
-  printf("Key: %s\nTag: %s\nHash: ", keyword, keysimple);
-  for (register int y=0; y<32; y++)
-    printf("%02x", hash[y]);
-  printf("\n");
-  return 0;
-}
+#include <openssl/crypto.h>
+#define HASHLEN SHA256_DIGEST_LENGTH
 
 /* Legacy Encripter */
-int l_encript (const char *keyword) {
+int legacyHasher (const char *keyword) {
   unsigned char *hash = SHA256((const unsigned char *)keyword, strlen(keyword), NULL);
   if (!hash) return -1;
   printf("Key: %s\nHash: ", keyword);
@@ -32,16 +18,34 @@ int l_encript (const char *keyword) {
   return 0;
 }
 
-/* Modify SHA256 hash using MD5 */
-void swap(unsigned char *sha256_hash, const unsigned char *md5_hash, const char *keysimple) {
-  size_t len = strlen(keysimple);
-  for (size_t i = 0; i < len; i++) {
-    size_t position = keysimple[i] % SHA256_DIGEST_LENGTH;
-    sha256_hash[position] ^= md5_hash[i % MD5_DIGEST_LENGTH];
-  }
-  for (size_t i=0; i<len; i++){
-    size_t position = (keysimple[i] * 3 + i) % SHA256_DIGEST_LENGTH;
-    size_t md5_index = (i * 5 + 7) % MD5_DIGEST_LENGTH;
-    sha256_hash[position] ^= md5_hash[md5_index];
+/* Hash a word */
+int hash(const char *password, const char *tag) {
+  unsigned char keyHash[SHA256_DIGEST_LENGTH];
+  unsigned char tagHash[SHA256_DIGEST_LENGTH];
+  if (!SHA256((const unsigned char *)password, strlen(password), keyHash))
+    return -1;
+  if (!SHA256((const unsigned char *)tag, strlen(tag), tagHash))
+    return 0;
+
+  swap(keyHash, tagHash, tag);
+  printf("Pass/tag: %s|%s\nHash: ", password, tag);
+  for (register int x = 0; x < 32; x++)
+    printf("%02x", keyHash[x]);
+  printf("\n");
+  OPENSSL_cleanse(keyHash, HASHLEN);
+  OPENSSL_cleanse(tagHash, HASHLEN);
+  return 0;
+}
+
+/* Mix KEY and TAG*/
+void swap(unsigned char *sha256Key, const unsigned char *sha256Tag, const char *tag) {
+  size_t size = strlen(tag);
+  if (size > 64) size=64;
+
+  for (size_t x = 0; x < size; x++) {
+    size_t hashPos = tag[x] % HASHLEN;
+    size_t hashPos2 = (tag[x]*3+x) % HASHLEN;
+    sha256Key[hashPos] ^= sha256Tag[x % HASHLEN];
+    sha256Key[hashPos2] ^= sha256Tag[(x*5+7) % HASHLEN];
   }
 }
