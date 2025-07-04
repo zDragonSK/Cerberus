@@ -23,10 +23,14 @@ int hash(const char *password, const char *tag) {
   unsigned char keyHash[SHA256_DIGEST_LENGTH];
   unsigned char tagHash[SHA256_DIGEST_LENGTH];
 
-  if (!SHA256((const unsigned char *)password, strlen(password), keyHash))
+  if (!SHA256((const unsigned char *)password, strlen(password), keyHash)) {
+    fprintf(stderr, "[-]: não foi possível gerar a chave\n");
     return -1;
-  if (!SHA256((const unsigned char *)tag, strlen(tag), tagHash))
+  }
+  if (!SHA256((const unsigned char *)tag, strlen(tag), tagHash)) {
+    fprintf(stderr, "[-]: não foi possível gerar a tag\n");
     return -1;
+  }
 
   swap(keyHash, tagHash, tag);
   printf("Pass/tag: %s|%s\nHash: ", password, tag);
@@ -42,7 +46,10 @@ int hash(const char *password, const char *tag) {
 /* Mix KEY and TAG*/
 void swap(unsigned char *sha256Key, const unsigned char *sha256Tag, const char *tag) {
   size_t size = strlen(tag);
-  if (size > 64) size=64;
+  if (size > 64) {
+    size = 64;
+    fprintf(stderr, "formatado para o máximo 64\n");
+  }
   for (size_t x = 0; x < size; x++) {
     size_t hashPos = tag[x] % HASHLEN;
     size_t hashPos2 = (tag[x]*3+x) % HASHLEN;

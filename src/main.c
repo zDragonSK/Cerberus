@@ -2,8 +2,6 @@
  Cerberus - Password-generator
  Encript a password with keys and words
  By: zDragonSK
-
- ./main bestpassword Discord
 */
 #include "lib/cerberus.h"
 #include <stdio.h>
