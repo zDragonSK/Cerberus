@@ -7,7 +7,7 @@
 #define _CERBERUS_H
 
 /* Encript a keyword with single-tag */
-int hash (const char *password, const char *tag);
+int hash (const char *password, const char *tag, const int size);
 /* Encript a keyword without single-tag */
 int legacyHasher (const char *password);
 /* Swap a hash */

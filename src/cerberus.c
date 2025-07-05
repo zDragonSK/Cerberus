@@ -19,7 +19,7 @@ int legacyHasher (const char *keyword) {
 }
 
 /* Hash a word */
-int hash(const char *password, const char *tag) {
+int hash(const char *password, const char *tag, const int size) {
   unsigned char keyHash[SHA256_DIGEST_LENGTH];
   unsigned char tagHash[SHA256_DIGEST_LENGTH];
 
@@ -34,7 +34,7 @@ int hash(const char *password, const char *tag) {
 
   swap(keyHash, tagHash, tag);
   printf("Pass/tag: %s|%s\nHash: ", password, tag);
-  for (register int x = 0; x < 32; x++)
+  for (register int x = 0; x < size; x++)
     printf("%02x", keyHash[x]);
   printf("\n");
 
