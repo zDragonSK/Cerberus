@@ -1,6 +1,8 @@
 # Cerberus
 A simple and functional password generator.
 
+Moved to [Omega](https://github.com/rahvax/omega)
+
 ## How it works?
 Cerberus receives two inputs. The first argument is the key to generate the password, and the second is a type of TAG. It is recommended that the TAG is the name of the social network or objective. Upon receiving the inputs, the algorithm will encrypt the key in SHA-256 and modify it with an hash generated using the TAG. In the end, Cerberus delivers a different key to each TAG, even if the same key is used.
 
